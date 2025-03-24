@@ -269,6 +269,12 @@ class store extends php_obj implements log_writer {
                 'send_short_course_id' => $this->get_config('shortcourseid', false),
                 'send_course_and_module_idnumber' => $this->get_config('sendidnumber', false),
                 'send_username' => $this->get_config('send_username', false),
+        // CINECA lrs.bestr.it extra user data start.
+                'send_bestr_data' => $this->get_config('send_bestr_data', false),
+                'bestr_custom_birthdate' => $this->get_config('bestr_custom_birthdate', false),
+                'bestr_custom_cf' => $this->get_config('bestr_custom_cf', false),
+                'bestr_custom_deh' => $this->get_config('bestr_custom_deh', false),
+        // CINECA lrs.bestr.it extra user data stop.
                 'account_homepage' => $this->get_config('account_homepage', $CFG->wwwroot),
                 'context_platform' => $this->get_config('context_platform', 'Moodle'),
                 'send_jisc_data' => $this->get_config('send_jisc_data', false),

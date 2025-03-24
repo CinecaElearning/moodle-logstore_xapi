@@ -42,7 +42,13 @@ function course_completed(array $config, \stdClass $event) {
     $course = $repo->read_record_by_id('course', $event->courseid);
     $lang = utils\get_course_lang($course);
 
-    return [[
+    if (utils\is_enabled_config($config, 'send_bestr_data')) {
+        $bestrdehvalue = utils\extensions\bestrdeh($config, $event, $course);
+    } else {
+        $bestrdehvalue = false;
+    }
+
+    return [array_merge([
         'actor' => utils\get_user($config, $user),
         'verb' => [
             'id' => 'http://adlnet.gov/expapi/verbs/completed',
@@ -58,6 +64,11 @@ function course_completed(array $config, \stdClass $event) {
                     utils\get_activity\site($config)
                 ]
             ],
-        ]
-    ]];
+        ]],
+        $bestrdehvalue ? ['result' => [
+            'completion' => true,
+            'success' => true,
+            'extensions' => $bestrdehvalue,
+        ]] : [],
+    )];
 }
